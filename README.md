@@ -20,8 +20,11 @@ Si estás utilizando Git, puedes clonar este repositorio ejecutando:
 
 ```bash
 git clone https://github.com/KennethFerre/weather-forecast.git
+
 cd weather-forecast
 ```
+Alternativamente, puedes descargar el código fuente en el siguiente [enlace](https://github.com/KennethFerre/weather-forecast/archive/refs/heads/master.zip.).
+<br>
 
 ### 2. Compilar
 
@@ -41,8 +44,7 @@ java -jar target/weather-forecast-0.0.1-SNAPSHOT.jar
 ```
 
 ### 4. Pruebas
-Importar la colección de Postman(weather-forecast.postman_collection.json) que adjunto en el email de entrega.
-
+Importar la colección de Postman en el siguiente [enlace](https://github.com/KennethFerre/preguntas/blob/main/weather-forecast.postman_collection.json).
 
 Alternativamente, accediendo desde el navegador para consultar los municipios:
 ```bash
