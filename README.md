@@ -41,8 +41,16 @@ java -jar target/weather-forecast-0.0.1-SNAPSHOT.jar
 ```
 
 ### 4. Pruebas
-Importar el la colección de Postman(weather-forecast.postman_collection.json) que adjunto en el email de entrega.
+Importar la colección de Postman(weather-forecast.postman_collection.json) que adjunto en el email de entrega.
 
 
+Alternativamente, accediendo desde el navegador para consultar los municipios:
+```bash
+http://localhost:8080/api/municipios
+```
+Consultar previsión por municipio
+```bash
+http://localhost:8080/api/prevision/municipio?id=id40001&unidad=G_FAH
+```
 
 
