@@ -16,7 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,15 +34,18 @@ public class AemetPrevisionAdapter implements PrevisionRepository {
     public PrevisionDiaResponse buscarPrevisionMunicipio(String id, String unidades) {
         String baseUrlPrediccion = UtilsUri.buildUrl(aemetProperties.getUrlBase(), aemetProperties.getPathPrediccionHorariaMunicipio());
         final String urlPrediccion = UtilsUri.buildPathSegment(baseUrlPrediccion, MunicipioUtils.obtenerCodigoMunicipio(id));
-        HttpHeaders headers = HeaderUtils.generarCabeceraAcceptJson(aemetProperties.getToken());
+        HttpHeaders headers = HeaderUtils.getHeaders(aemetProperties.getToken());
 
         AemetResponse aemetResponse = aemetRestClient.get(urlPrediccion, AemetResponse.class, headers);
-        ParameterizedTypeReference<List<PrediccionMunicipioDto>> returnType = new ParameterizedTypeReference<>() {};
 
         if (aemetResponse.getDatos() == null)
             throw new MunicipioNotFoundException(String.format("No se ha encontrado la previsión para el municipio con código %s", id), HttpStatus.NOT_FOUND);
 
-        List<PrediccionMunicipioDto> municipioResponse = this.aemetRestClient.get(aemetResponse.getDatos(), HeaderUtils.generarCabeceraAcceptJson(), returnType);
+        List<PrediccionMunicipioDto> municipioResponse = this.aemetRestClient.get(
+            aemetResponse.getDatos(),
+            HeaderUtils.getHeaders(),
+            new ParameterizedTypeReference<>() {}
+        );
 
         return PrevisionUtils.convertPredicion(
             Objects.requireNonNull(municipioResponse).get(0),
