@@ -5,7 +5,6 @@ import com.weatherapi.forecast.application.dto.responses.AemetResponse;
 import com.weatherapi.forecast.configuration.AemetProperties;
 import com.weatherapi.forecast.shared.domain.ports.out.MunicipiosRepository;
 import com.weatherapi.forecast.shared.exception.AemetException;
-import com.weatherapi.forecast.shared.utils.HeaderUtils;
 import com.weatherapi.forecast.shared.utils.UtilsUri;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
@@ -27,20 +26,12 @@ public class AemetMunicipiosAdapter implements MunicipiosRepository {
     @Override
     public List<MunicipioDto> buscarMunicipios() {
         final String endpoint = UtilsUri.buildUrl(aemetProperties.getUrlBase(), aemetProperties.getPathMunicipios());
-        AemetResponse aemetResponse = this.aemetRestClient.get(
-            endpoint,
-            AemetResponse.class,
-            HeaderUtils.getHeaders(aemetProperties.getToken())
-        );
+        AemetResponse aemetResponse = this.aemetRestClient.get(endpoint, AemetResponse.class);
 
         if (aemetResponse.getDatos() == null)
             throw new AemetException("No se encontraron municipios", endpoint, HttpStatus.NOT_FOUND);
 
-        return this.aemetRestClient.get(
-            aemetResponse.getDatos(),
-            HeaderUtils.getHeaders(),
-            new ParameterizedTypeReference<>() {}
-        );
+        return this.aemetRestClient.get(aemetResponse.getDatos(), new ParameterizedTypeReference<>() {} );
     }
 
 }

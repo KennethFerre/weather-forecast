@@ -15,14 +15,14 @@ public class AemetRestClient {
         this.aemetRestTemplate = restTemplate;
     }
 
-    public <T> T get(String url, Class<T> responseType, HttpHeaders headers) {
-        final HttpEntity<String> entity = new HttpEntity<>("body", headers);
+    public <T> T get(String url, Class<T> responseType) {
+        final HttpEntity<String> entity = new HttpEntity<>("body");
         ResponseEntity<T> responseEntity = aemetRestTemplate.exchange(url, HttpMethod.GET, entity, responseType);
         return responseEntity.getBody();
     }
 
-    public <T> T get(String url, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
-        final HttpEntity<String> entity = new HttpEntity<>("body", headers);
+    public <T> T get(String url, ParameterizedTypeReference<T> parameterizedTypeReference) {
+        final HttpEntity<String> entity = new HttpEntity<>("body");
         try {
             ResponseEntity<T> responseEntity = aemetRestTemplate.exchange(url, HttpMethod.GET, entity, parameterizedTypeReference);
             return responseEntity.getBody();
